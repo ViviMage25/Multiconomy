@@ -38,8 +38,10 @@ public class Multiconomy extends JavaPlugin {
     }
 
     private void unregisterVault() {
-        Bukkit.getServicesManager().unregister(Economy.class, getEconomyProvider());
-        getLogger().info(String.format("VaultAPI Economy unregistered from %s", getName()));
+        if (Bukkit.getServicesManager().getRegistrations(Economy.class).getProvider() instanceof VaultEconomyProvider) {
+            Bukkit.getServicesManager().unregister(Economy.class, getEconomyProvider());
+            getLogger().info(String.format("VaultAPI Economy unregistered from %s", getName()));
+        }
     }
 
     private void loadConfigs() {
