@@ -1,0 +1,25 @@
+config:
+  default: minecraft-dollars
+  worlds:
+    world:
+      currency: green-gems
+virtual:
+  minecraft-dollars:
+    active: true
+    description:
+    - Minecraft's base currency.
+    prefix: MC$
+    suffix: 
+    value: 1.0
+    max-balance: 2000000000.0
+virtual-physical:
+physical:
+  green-gems:
+    active: true
+    material: EMERALD
+    prefix: 
+    suffix: GG
+    description:
+    - Minecraft's Villager Favorite
+    value: 16.0
+experience:
