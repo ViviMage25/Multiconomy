@@ -3,13 +3,13 @@ package me.vivimage25.multiconomy.config;
 import java.util.List;
 import java.util.Set;
 import java.util.logging.Logger;
+import me.vivimage25.multiconomy.Multiconomy;
 import me.vivimage25.multiconomy.economy.EconomyManager;
 import me.vivimage25.multiconomy.economy.currency.CurrencyManager;
 import me.vivimage25.multiconomy.economy.currency.CurrencyType;
 import me.vivimage25.multiconomy.economy.currency.ExperienceCurrency;
 import me.vivimage25.multiconomy.economy.currency.VirtualCurrency;
 import me.vivimage25.multiconomy.economy.currency.VirtualPhysicalCurrency;
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.inventory.ItemStack;
@@ -20,10 +20,10 @@ public class CurrencyConfig extends Config {
     private final CurrencyManager manager;
     private final Logger log;
 
-    public CurrencyConfig(String filename) {
-        super(filename);
+    public CurrencyConfig() {
+        super("currency.yml");
         manager = EconomyManager.CURRENCY_MANAGER;
-        log = Bukkit.getServer().getPluginManager().getPlugin("Multiconomy").getLogger();
+        log = Multiconomy.getInstance().getLogger();
     }
 
     @Override

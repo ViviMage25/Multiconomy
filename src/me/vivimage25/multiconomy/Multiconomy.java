@@ -2,6 +2,7 @@ package me.vivimage25.multiconomy;
 
 import me.vivimage25.multiconomy.config.CurrencyConfig;
 import me.vivimage25.multiconomy.economy.dependancy.VaultEconomyProvider;
+import me.vivimage25.multiconomy.listener.MainMenuGUIListener;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.ServicePriority;
@@ -12,6 +13,7 @@ public class Multiconomy extends JavaPlugin {
     private static Multiconomy instance;
     private VaultEconomyProvider economy_provider;
     private CurrencyConfig currency_config;
+    private MainMenuGUIListener main_menu_gui;
 
     public static Multiconomy getInstance() {
         return instance;
@@ -24,7 +26,12 @@ public class Multiconomy extends JavaPlugin {
     private void instanceFields() {
         Multiconomy.instance = this;
         economy_provider = new VaultEconomyProvider();
-        currency_config = new CurrencyConfig("currency.yml");
+        currency_config = new CurrencyConfig();
+        main_menu_gui = new MainMenuGUIListener();
+    }
+
+    private void registerEvents() {
+        getServer().getPluginManager().registerEvents(main_menu_gui, this);
     }
 
     private void registerVault() {
@@ -38,7 +45,7 @@ public class Multiconomy extends JavaPlugin {
     }
 
     private void unregisterVault() {
-        if (Bukkit.getServicesManager().getRegistrations(Economy.class).getProvider() instanceof VaultEconomyProvider) {
+        if (Bukkit.getServicesManager().getRegistration(Economy.class).getProvider() instanceof VaultEconomyProvider) {
             Bukkit.getServicesManager().unregister(Economy.class, getEconomyProvider());
             getLogger().info(String.format("VaultAPI Economy unregistered from %s", getName()));
         }
