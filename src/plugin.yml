@@ -1,6 +1,6 @@
 name: Multiconomy
 description: Provide multiple currencies for your server. Includes per-world support.
 version: 0.1.0
-api-version: 1.18
+api-version: 1.17
 main: me.vivimage25.multiconomy.Multiconomy
 depend: [Vault]

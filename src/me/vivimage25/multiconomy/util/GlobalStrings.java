@@ -21,8 +21,9 @@ public class GlobalStrings {
         PERMISSION_MAP.put("gui_withdraw", "multiconomy.gui.withdraw");
         PERMISSION_MAP.put("gui_exchange", "multiconomy.gui.exchange");
         PERMISSION_MAP.put("gui_create", "multiconomy.gui.create");
+        PERMISSION_MAP.put("gui_edit", "multiconomy.gui.edit");
         PERMISSION_MAP.put("gui_delete", "multiconomy.gui.delete");
-        PERMISSION_MAP.put("gui_give", "multiconomy.gui.give");
+        PERMISSION_MAP.put("gui_modify", "multiconomy.gui.modify");
     }
 
     private GlobalStrings() {
