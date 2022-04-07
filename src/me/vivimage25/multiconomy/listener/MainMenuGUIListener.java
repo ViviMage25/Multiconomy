@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
-import static me.vivimage25.multiconomy.util.GlobalStrings.PERMISSION_MAP;
+import static me.vivimage25.multiconomy.util.PermissionStrings.*;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -30,7 +30,7 @@ public class MainMenuGUIListener implements Listener {
         ItemMeta meta = item.getItemMeta();
 
         // Balance
-        if (player.hasPermission(PERMISSION_MAP.get("gui_balance"))) {
+        if (player.hasPermission(PERMISSION_GUI_BALANCE)) {
             meta.setDisplayName("Balance");
             meta.setLore(List.of("Check your balance(s)", "Note: this will display all active currencies"));
             item.setType(Material.GOLD_INGOT);
@@ -39,7 +39,7 @@ public class MainMenuGUIListener implements Listener {
         }
 
         // Balance Top
-        if (player.hasPermission(PERMISSION_MAP.get("gui_balancetop"))) {
+        if (player.hasPermission(PERMISSION_GUI_BALANCETOP)) {
             meta.setDisplayName("Balance Top");
             meta.setLore(List.of("Check the top 10 balances on the server", "Note: this will be split by all active currencies"));
             item.setType(Material.GOLD_ORE);
@@ -48,7 +48,7 @@ public class MainMenuGUIListener implements Listener {
         }
 
         // Worth
-        if (player.hasPermission(PERMISSION_MAP.get("gui_worth"))) {
+        if (player.hasPermission(PERMISSION_GUI_WORTH)) {
             meta.setDisplayName("Worth");
             meta.setLore(List.of("Check your total worth"));
             item.setType(Material.EMERALD);
@@ -57,7 +57,7 @@ public class MainMenuGUIListener implements Listener {
         }
 
         // Worth Top
-        if (player.hasPermission(PERMISSION_MAP.get("gui_worthtop"))) {
+        if (player.hasPermission(PERMISSION_GUI_WORTHTOP)) {
             meta.setDisplayName("Worth Top");
             meta.setLore(List.of("Check the top 10 total worth's on the server"));
             item.setType(Material.EMERALD_ORE);
@@ -66,7 +66,7 @@ public class MainMenuGUIListener implements Listener {
         }
 
         // Pay
-        if (player.hasPermission(PERMISSION_MAP.get("gui_pay"))) {
+        if (player.hasPermission(PERMISSION_GUI_PAY)) {
             meta.setDisplayName("Pay");
             meta.setLore(List.of("Pay another player"));
             item.setType(Material.PAPER);
@@ -75,7 +75,7 @@ public class MainMenuGUIListener implements Listener {
         }
 
         // Trade
-        if (player.hasPermission(PERMISSION_MAP.get("gui_trade"))) {
+        if (player.hasPermission(PERMISSION_GUI_TRADE)) {
             meta.setDisplayName("Trade");
             meta.setLore(List.of("Send a trade request to another player", "Note: other player must accept"));
             item.setType(Material.MAP);
@@ -84,7 +84,7 @@ public class MainMenuGUIListener implements Listener {
         }
 
         // Deposit
-        if (player.hasPermission(PERMISSION_MAP.get("gui_deposit"))) {
+        if (player.hasPermission(PERMISSION_GUI_DEPOSIT)) {
             meta.setDisplayName("Deposit");
             meta.setLore(List.of("Deposit currency to bank"));
             item.setType(Material.CHEST);
@@ -93,7 +93,7 @@ public class MainMenuGUIListener implements Listener {
         }
 
         // Withdraw
-        if (player.hasPermission(PERMISSION_MAP.get("gui_withdraw"))) {
+        if (player.hasPermission(PERMISSION_GUI_WITHDRAW)) {
             meta.setDisplayName("Withdraw");
             meta.setLore(List.of("Withdraw currency from bank"));
             item.setType(Material.ENDER_CHEST);
@@ -102,7 +102,7 @@ public class MainMenuGUIListener implements Listener {
         }
 
         // Exchange
-        if (player.hasPermission(PERMISSION_MAP.get("gui_exchange"))) {
+        if (player.hasPermission(PERMISSION_GUI_EXCHANGE)) {
             meta.setDisplayName("Exchange");
             meta.setLore(List.of("Exchange currency for currency"));
             item.setType(Material.HOPPER);
@@ -111,7 +111,7 @@ public class MainMenuGUIListener implements Listener {
         }
 
         // Create (Admin-Only)
-        if (player.hasPermission(PERMISSION_MAP.get("gui_create"))) {
+        if (player.hasPermission(PERMISSION_GUI_CREATE)) {
             meta.setDisplayName("Create Currency");
             meta.setLore(List.of("Create a new global currency"));
             item.setType(Material.CRAFTING_TABLE);
@@ -120,7 +120,7 @@ public class MainMenuGUIListener implements Listener {
         }
 
         // Edit (Admin-Only)
-        if (player.hasPermission(PERMISSION_MAP.get("gui_edit"))) {
+        if (player.hasPermission(PERMISSION_GUI_EDIT)) {
             meta.setDisplayName("Edit Currency");
             meta.setLore(List.of("Create a global currency"));
             item.setType(Material.SMITHING_TABLE);
@@ -129,7 +129,7 @@ public class MainMenuGUIListener implements Listener {
         }
 
         // Delete (Admin-Only)
-        if (player.hasPermission(PERMISSION_MAP.get("gui_delete"))) {
+        if (player.hasPermission(PERMISSION_GUI_DELETE)) {
             meta.setDisplayName("Delete Currency");
             meta.setLore(List.of("Delete a global currency"));
             item.setType(Material.STONECUTTER);
@@ -138,7 +138,7 @@ public class MainMenuGUIListener implements Listener {
         }
 
         // Modify (Admin-Only) - Set,Give,Remove
-        if (player.hasPermission(PERMISSION_MAP.get("gui_modify"))) {
+        if (player.hasPermission(PERMISSION_GUI_MODIFY)) {
             meta.setDisplayName("Modify Player");
             meta.setLore(List.of("Modify a player's currencies"));
             item.setType(Material.ENCHANTING_TABLE);
@@ -147,13 +147,12 @@ public class MainMenuGUIListener implements Listener {
         }
         
         // Check for player gui access permission, add inventory to map, open inventory.
-        if (player.hasPermission(PERMISSION_MAP.get("gui_access"))) {
+        if (player.hasPermission(PERMISSION_GUI_ACCESS)) {
             INVENTORY_MAP.put(player.getUniqueId(), inventory);
             player.openInventory(inventory);
         } else {
             player.sendMessage(ChatColor.RED + "You do not have permission for that");
         }
-
     }
 
     @EventHandler
@@ -171,6 +170,30 @@ public class MainMenuGUIListener implements Listener {
         switch (event.getRawSlot()) {
             case 1: // Balance
                 BalanceGUIListener.openInventory(player);
+                break;
+            case 3: // Balance Top
+                break;
+            case 5: // Worth
+                break;
+            case 7: // Worth Top
+                break;
+            case 12: // Pay
+                break;
+            case 14: // Trade
+                break;
+            case 20: // Deposit
+                break;
+            case 22: // Withdraw
+                break;
+            case 24: // Exchange
+                break;
+            case 28: // Create
+                break;
+            case 30: // Edit
+                break;
+            case 32: // Delete
+                break;
+            case 34: // Modify
                 break;
         }
     }

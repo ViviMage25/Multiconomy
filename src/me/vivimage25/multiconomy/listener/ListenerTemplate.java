@@ -16,22 +16,15 @@
  */
 package me.vivimage25.multiconomy.listener;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.UUID;
-import me.vivimage25.multiconomy.economy.EconomyManager;
-import me.vivimage25.multiconomy.economy.account.Account;
-import me.vivimage25.multiconomy.economy.account.AccountManager;
-import me.vivimage25.multiconomy.economy.account.AccountType;
 import static me.vivimage25.multiconomy.util.PermissionStrings.*;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.inventory.InventoryDragEvent;
@@ -43,33 +36,17 @@ import org.bukkit.inventory.meta.ItemMeta;
  *
  * @author ViviMage25 <spot.me.69@gmail.com>
  */
-public class BalanceGUIListener implements Listener {
+public class ListenerTemplate {
 
     private static final String INVENTORY_TITLE = "Multiconomy Balance Menu";
     private static final Map<UUID, Inventory> INVENTORY_MAP = new HashMap<>();
-    private static final AccountManager account_manager = EconomyManager.ACCOUNT_MANAGER;
 
     public static void openInventory(Player player) {
         Inventory inventory = Bukkit.createInventory(player, 36, INVENTORY_TITLE);
         ItemStack item = new ItemStack(Material.STONE, 1);
         ItemMeta meta = item.getItemMeta();
-        
-        // Iterate through all accounts with UUID in name.
-        List<Account> player_accounts = new ArrayList<>();
-        for(Account account : account_manager.getAccounts()) {
-            if(account.getName().equals(player.getUniqueId().toString())) {
-                player_accounts.add(account);
-            }
-        }
-        
+
         // Create GUI Menu
-        for(Account account : player_accounts) {
-            meta.setDisplayName(account.getCurrency().getName());
-            meta.setLore(List.of(String.format("Balance: %f", account.getBalance())));
-            // Set Material based on currency type
-            item.setItemMeta(meta);
-            inventory.setItem(1, item);
-        }
 
         // Check for player gui access permission, add inventory to map, open inventory.
         if (player.hasPermission(PERMISSION_GUI_ACCESS)) {
@@ -91,10 +68,6 @@ public class BalanceGUIListener implements Listener {
         if (event.getCurrentItem() == null) {
             return;
         }
-        switch(event.getRawSlot()) {
-            case 1:
-                break;
-        }
     }
     
     @EventHandler
@@ -110,5 +83,4 @@ public class BalanceGUIListener implements Listener {
             INVENTORY_MAP.remove(event.getPlayer().getUniqueId());
         }
     }
-    
-}
+    }
